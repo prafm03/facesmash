@@ -1,2 +1,11 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    import Picker from "$lib/components/picker.svelte";
+    export let data;
+    let { options } = data;
+</script>
+
+<svelte:head>
+    <title>Who Is Hotter?</title>
+</svelte:head>
+
+<Picker {options} />
