@@ -1,5 +1,5 @@
 export const getNewEloScores = (person1Rating, person2Rating, person1Won) => {
-  let k = 64;
+  let k = 32;
   if ([0, 0.5, 1].indexOf(person1Won) === -1) {
     return null;
   }
