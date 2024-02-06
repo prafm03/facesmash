@@ -17,7 +17,7 @@
         confetti = true;
         await tick();
         window.scroll(0, 0);
-        await fetch("/", {
+        fetch("/", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
