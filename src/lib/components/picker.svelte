@@ -55,9 +55,8 @@
                 </div>
                 <img
                     class="h-auto max-w-full"
-                    src="https://praful.pockethost.io/api/files/{options[0]
-                        .collectionId}/{options[0].id}/{options[0]
-                        .profilePhoto}?thumb=400x400"
+                    src="https://praful.pockethost.io/api/files/faces/{options[0]
+                        .id}/{options[0].profilePhoto}?thumb=400x400"
                     alt="face"
                 />
             </button>
@@ -69,9 +68,8 @@
                 </div>
                 <img
                     class="h-auto max-w-full"
-                    src="https://praful.pockethost.io/api/files/{options[1]
-                        .collectionId}/{options[1].id}/{options[1]
-                        .profilePhoto}?thumb=400x400"
+                    src="https://praful.pockethost.io/api/files/faces/{options[1]
+                        .id}/{options[1].profilePhoto}?thumb=400x400"
                     alt="face"
                 />
             </button>

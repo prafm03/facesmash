@@ -1,6 +1,6 @@
 import { getNewEloScores } from "$lib/server/elo.js";
 
-export async function POST({ request, locals }) {
+export async function POST({ request, locals, cookies }) {
   // parse request data
   const { id1, id2, id1Won } = await request.json();
   // get current elos
@@ -21,5 +21,6 @@ export async function POST({ request, locals }) {
       gamesWon: id1Won === 1 ? games2Won : id1Won,
     }),
   ]);
+
   return new Response({ status: 201 });
 }
