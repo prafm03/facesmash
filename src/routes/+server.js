@@ -9,13 +9,11 @@ export async function POST({ request, locals }) {
       locals.db.collection("faces").getOne(id1),
       locals.db.collection("faces").getOne(id2),
     ]);
-  console.log("elo");
-  console.log(elo1, elo2);
   // calculate new elos
   const newElos = await getNewEloScores(elo1, elo2, id1Won);
   // update new elos
   console.log(newElos, id1Won);
-  const [result1, result2] = await Promise.all([
+  await Promise.all([
     locals.db
       .collection("faces")
       .update(id1, { eloScore: newElos[0], gamesWon: id1Won }),
@@ -24,7 +22,5 @@ export async function POST({ request, locals }) {
       gamesWon: id1Won === 1 ? games2Won : id1Won,
     }),
   ]);
-  console.log("db update");
-  console.log(result1, result2);
   return new Response({ status: 201 });
 }
