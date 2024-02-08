@@ -1,5 +1,5 @@
 export async function load({ locals }) {
-  // page, limit, options
+  // args: page, limit, options
   const query = await locals.db.collection("faces").getList(1, 2, {
     fields: "id, profilePhoto",
     sort: "@random",
@@ -7,7 +7,6 @@ export async function load({ locals }) {
     perPage: 2,
     skipTotal: true,
   });
-  console.log(query);
   return {
     options: query.items,
   };
