@@ -17,6 +17,7 @@
         confetti = true;
         await tick();
         window.scroll(0, 0);
+        // no need to await as result is not important, who cares if one game fails, very low stakes
         fetch("/", {
             method: "POST",
             headers: {
