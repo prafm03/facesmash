@@ -12,8 +12,7 @@ export async function POST({ request, locals }) {
   // calculate new elos
   const newElos = await getNewEloScores(elo1, elo2, id1Won);
   // update new elos
-  console.log(newElos, id1Won);
-  await Promise.all([
+  const [result1, result2] = await Promise.all([
     locals.db
       .collection("faces")
       .update(id1, { eloScore: newElos[0], gamesWon: id1Won }),
