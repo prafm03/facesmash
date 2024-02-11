@@ -5,6 +5,7 @@
     export let options;
 
     let m = { x: 0, y: 0 };
+    let clicked = false;
 
     const handleMousemove = (event) => {
         m.x = event.clientX;
@@ -12,24 +13,30 @@
     };
 
     const handleClick = async (winner) => {
-        confetti = false;
-        await tick();
-        confetti = true;
-        await tick();
-        window.scroll(0, 0);
-        // no need to await as result is not important, who cares if one game fails, very low stakes
-        fetch("/", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                id1: options[0].id,
-                id2: options[1].id,
-                id1Won: winner,
-            }),
-        });
-        window.location.href = "/";
+        if (clicked === false) {
+            // because we dont await the fetch, you can spam 6 changes per page refresh, this makes it so that you can only click once per page
+            // also prevents hitting pockethost rate limit
+            clicked = true;
+            confetti = false;
+            await tick();
+            confetti = true;
+            await tick();
+            window.scroll(0, 0);
+            console.log("clicked");
+            // no need to await as result is not important, who cares if one game fails, very low stakes
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    id1: options[0].id,
+                    id2: options[1].id,
+                    id1Won: winner,
+                }),
+            });
+            window.location.href = "/";
+        }
     };
 
     let confetti = false;
