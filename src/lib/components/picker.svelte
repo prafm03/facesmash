@@ -1,28 +1,24 @@
 <script>
     import { Confetti } from "svelte-canvas-confetti";
-    import { tick } from "svelte";
+    import { tick, onMount } from "svelte";
 
     export let options;
 
-    let m = { x: 0, y: 0 };
-    let clicked = false;
-
-    const handleMousemove = (event) => {
+    const handleMouseMove = (event) => {
         m.x = event.clientX;
         m.y = event.clientY;
     };
 
     const handleClick = async (winner) => {
-        if (clicked === false) {
+        if (clickedOnce === false) {
             // because we dont await the fetch, you can spam 6 changes per page refresh, this makes it so that you can only click once per page
             // also prevents hitting pockethost rate limit
-            clicked = true;
+            clickedOnce = true;
             confetti = false;
             await tick();
             confetti = true;
             await tick();
             window.scroll(0, 0);
-            console.log("clicked");
             // no need to await as result is not important, who cares if one game fails, very low stakes
             fetch("/", {
                 method: "PATCH",
@@ -39,7 +35,13 @@
         }
     };
 
+    onMount(() => {
+        window.addEventListener("mouseMove", handleMouseMove);
+    });
+
+    let m = { x: 0, y: 0 };
     let confetti = false;
+    let clickedOnce = false;
 </script>
 
 {#if confetti}
@@ -51,7 +53,7 @@
 </p>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:mousemove={handleMousemove}>
+<div on:mousemove={handleMouseMove}>
     <div class="flex justify-center font-mono">
         <form class="grid grid-cols-1 gap-12 rounded-full p-6 md:grid-cols-2">
             <button class="relative" on:click={() => handleClick(1)}>
