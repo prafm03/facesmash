@@ -25,7 +25,7 @@
             console.log("clicked");
             // no need to await as result is not important, who cares if one game fails, very low stakes
             fetch("/", {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "content-type": "application/json",
                 },

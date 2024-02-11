@@ -1,6 +1,6 @@
 import { getNewEloScores } from "$lib/server/elo.js";
 
-export async function POST({ request, locals, cookies }) {
+export async function PATCH({ request, locals }) {
   // parse request data
   const { id1, id2, id1Won } = await request.json();
   // get current elos
